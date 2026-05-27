@@ -1,0 +1,11 @@
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "24 Ayar Altın Kolye",
+  "brand": "Atasay",
+  "category": "Kolye",
+  "price": 15000.00,
+  "stock": 10,
+  "imageUrl": "https://ornekresim.com/kolye.jpg"
+}
