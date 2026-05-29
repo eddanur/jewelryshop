@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erkek Saat Modelleri | EDDE JEWELRY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafafa; }
+
+        /* HEADER - AÇILIR MENÜLÜ YAPI */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background-color: #fff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 18px; letter-spacing: 3px; font-weight: 600; text-decoration: none; color: #000; border: 2px solid #d4af37; padding: 5px 10px; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li { position: relative; padding: 10px 0; cursor: pointer; font-size: 14px; font-weight: 500; }
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 10px 0; z-index: 200; }
+        .dropdown a { display: block; padding: 8px 20px; text-decoration: none; color: #333; font-size: 13px; }
+        .dropdown a:hover { color: #d4af37; background: #fafafa; }
+        nav ul li:hover .dropdown { display: block; }
+
+        .cart-badge { background-color: #d4af37; color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; top: -8px; right: -10px; }
+
+        /* ÜRÜN VİTRİNİ */
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .product-card { background: #fff; padding: 15px; text-align: center; cursor: pointer; text-decoration: none; color: inherit; display: block; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .product-card:hover { transform: translateY(-5px); transition: 0.3s; }
+        .product-card img { width: 100%; height: 250px; object-fit: cover; margin-bottom: 10px; }
+        .p-price { color: #d4af37; font-weight: 600; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">EDDE JEWELRY</a>
+    <nav>
+        <ul>
+            <li>Yeni Ürünler
+                <div class="dropdown"><a href="yeni-sezon.html">Yeni Sezon</a><a href="cok-satanlar.html">Çok Satanlar</a></div>
+            </li>
+            <li>Kadın Takı
+                <div class="dropdown">
+                    <a href="kadin-kupe.html">Kadın Küpe</a>
+                    <a href="kadin-kolye.html">Altın Kolyeler</a>
+                    <a href="kadin-bileklik.html">Zarif Bileklikler</a>
+                </div>
+            </li>
+            <li>Erkek Takı
+                <div class="dropdown"><a href="erkek-yuzuk.html">Erkek Yüzük</a><a href="erkek-saat.html">Saat Modelleri</a></div>
+            </li>
+            <li>Çocuk Aksesuar
+                <div class="dropdown"><a href="cocuk-aksesuar.html">Çocuk Koleksiyonu</a></div>
+            </li>
+        </ul>
+    </nav>
+    <a href="sepet.html" style="position: relative;">🛒<div class="cart-badge" id="cartBadgeCount">0</div></a>
+</header>
+
+<div style="text-align: center; padding: 50px;"><h1>Erkek Saat Modelleri</h1></div>
+
+<section class="products-grid">
+    <a href="urun-detay.html" class="product-card"><img src="images/saat1.jpg"><div class="p-card-title">Klasik Deri Saat</div><div class="p-price">12.500 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/saat2.jpg"><div class="p-card-title">Spor Çelik Saat</div><div class="p-price">15.000 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/saat3.jpg"><div class="p-card-title">Dijital Modern Saat</div><div class="p-price">8.900 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/saat4.jpg"><div class="p-card-title">Lüks Otomatik Saat</div><div class="p-price">22.500 ₺</div></a>
+</section>
+
+<script>
+    // SEPET SAYACI
+    window.addEventListener('DOMContentLoaded', () => {
+        let sepet = JSON.parse(localStorage.getItem('edde_sepet')) || [];
+        let toplam = 0; sepet.forEach(u => toplam += u.adet);
+        document.getElementById('cartBadgeCount').innerText = toplam;
+    });
+
+    // ÜRÜNE TIKLANINCA BİLGİLERİ DETAY SAYFASINA GÖNDER
+    document.addEventListener('click', function(e) {
+        let card = e.target.closest('.product-card');
+        if(card && card.getAttribute('href') === 'urun-detay.html') {
+            localStorage.setItem('aktif_urun', JSON.stringify({
+                isim: card.querySelector('.p-card-title').innerText,
+                fiyat: card.querySelector('.p-price').innerText,
+                resim: card.querySelector('img').src
+            }));
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadın Bileklik Modelleri | EDDE JEWELRY</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+
+        .top-bar {
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 40px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            z-index: 200;
+            position: relative;
+        }
+
+        .top-bar-left { color: #bbb; }
+        .top-bar-right { display: flex; align-items: center; gap: 15px; }
+
+
+        .lang-dropdown { position: relative; display: inline-block; }
+        .current-lang { font-weight: 400; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: color 0.3s; }
+        .current-lang:hover { color: #d4af37; }
+        .lang-menu { display: none; position: absolute; top: 150%; right: 0; background-color: #fff; min-width: 140px; box-shadow: 0px 8px 15px rgba(0,0,0,0.15); border-radius: 4px; padding: 8px 0; z-index: 300; }
+        .lang-menu.show { display: flex; flex-direction: column; }
+        .lang-menu div { padding: 10px 15px; font-size: 12px; color: #333; cursor: pointer; transition: 0.2s; }
+        .lang-menu div:hover { background-color: #fafafa; color: #d4af37; }
+
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .logo-box { border: 2px solid #d4af37; padding: 8px 15px; display: inline-block; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 3px; font-weight: 600; color: #000; text-transform: uppercase; text-decoration: none; }
+
+        nav ul { display: flex; list-style: none; gap: 25px; }
+        nav ul li { position: relative; padding: 10px 0; }
+        nav ul li > a { text-decoration: none; color: #1c1c1c; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; position: relative; padding-bottom: 5px; transition: color 0.3s; cursor: pointer; }
+        nav ul li > a:hover { color: #d4af37; }
+
+        /* AÇILIR MENÜ */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            min-width: 180px;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.08);
+            border-top: 2px solid #d4af37;
+            padding: 10px 0;
+            z-index: 200;
+        }
+        .dropdown-menu.show { display: flex; flex-direction: column; }
+        .dropdown-menu a { color: #555; padding: 10px 20px; text-decoration: none; font-size: 12px; text-align: left; transition: 0.2s; }
+        .dropdown-menu a:hover { background-color: #fafafa; color: #d4af37; padding-left: 25px; }
+
+        /* İKONLAR */
+        .nav-icons { display: flex; align-items: center; gap: 18px; }
+        .nav-icons a { text-decoration: none; color: #1c1c1c; font-size: 16px; transition: color 0.3s; }
+        .nav-icons a:hover { color: #d4af37; }
+        .cart-icon { position: relative; display: flex; align-items: center; }
+        .cart-badge { background-color: #d4af37; color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; top: -8px; right: -10px; }
+
+        /* --- KATEGORİ BAŞLIK --- */
+        .category-hero { background-color: #111; color: #fff; padding: 60px 20px; text-align: center; margin-bottom: 50px; }
+        .category-hero h1 { font-family: 'Playfair Display', serif; font-size: 42px; letter-spacing: 2px; margin-bottom: 10px; color: #d4af37; }
+        .category-hero p { font-size: 14px; color: #bbb; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        /* --- ÜRÜN VİTRİNİ --- */
+        .products-section { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 30px; }
+
+        .product-card {
+            background: #fff;
+            padding-bottom: 15px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid transparent;
+        }
+        .product-card:hover { transform: translateY(-10px); border-color: #eedcbf; }
+        .product-card img { width: 100%; height: 280px; object-fit: cover; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 15px; }
+        .p-card-title { font-size: 14px; font-weight: 500; color: #333; margin-bottom: 5px; padding: 0 10px; }
+        .p-card-price { font-size: 16px; font-weight: 600; color: #d4af37; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 50px 10% 20px;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="top-bar-left">✨ Tüm Siparişlerde Ücretsiz Kargo ve Ömür Boyu Bakım Garantisi!</div>
+    <div class="top-bar-right">
+        <div class="lang-dropdown">
+            <div class="current-lang" id="activeLang" onclick="toggleLang(event)">Türkçe - TRY ▾</div>
+            <div class="lang-menu" id="langOptions">
+                <div onclick="changeLang('Türkçe - TRY')">🇹🇷 Türkçe - TRY</div>
+                <div onclick="changeLang('English - USD')">🇺🇸 English - USD</div>
+                <div onclick="changeLang('Deutsch - EUR')">🇩🇪 Deutsch - EUR</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<header>
+    <a href="index.html" style="text-decoration: none;"><div class="logo-box"><div class="logo">EDDE JEWELRY</div></div></a>
+    <nav>
+        <ul>
+            <li><a href="#" class="nav-link" onclick="toggleMenu(event, 'menu-1')">Yeni Ürünler ▾</a>
+                <div class="dropdown-menu" id="menu-1"><a href="yeni-sezon.html">Yeni Sezon Koleksiyonu</a><a href="cok-satanlar.html">En Çok Satanlar</a></div>
+            </li>
+            <li><a href="#" class="nav-link" onclick="toggleMenu(event, 'menu-2')">Kadın Takı ▾</a>
+                <div class="dropdown-menu" id="menu-2"><a href="kadin-kupe.html">Kadın Küpe</a><a href="kadin-kolye.html">Altın Kolyeler</a><a href="kadin-bileklik.html">Zarif Bileklikler</a></div>
+            </li>
+            <li><a href="#" class="nav-link" onclick="toggleMenu(event, 'menu-3')">Erkek Takı ▾</a>
+                <div class="dropdown-menu" id="menu-3"><a href="erkek-yuzuk.html">Erkek Yüzük</a><a href="erkek-saat.html">Saat Modelleri</a></div>
+            </li>
+            <li><a href="#" class="nav-link" onclick="toggleMenu(event, 'menu-4')">Çocuk Aksesuar ▾</a>
+                <div class="dropdown-menu" id="menu-4"><a href="cocuk-kunye.html">İsimli Künyeler</a></div>
+            </li>
+        </ul>
+    </nav>
+    <div class="nav-icons">
+        <a href="profil.html">👤</a><a href="arama.html">🔍</a>
+        <div class="cart-icon"><a href="sepet.html">🛒</a><div class="cart-badge" id="cartBadgeCount">0</div></div>
+    </div>
+</header>
+
+<div class="category-hero">
+    <h1>Zarif Bileklikler</h1>
+    <p>Bileklerinizi zarafetle saracak, her kombininize ışıltı katacak özel tasarım koleksiyonumuz.</p>
+</div>
+
+<section class="products-section">
+    <div class="products-grid">
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik1.webp"><div class="p-card-title">Model 1</div><div class="p-card-price">12.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik2.jpg"><div class="p-card-title">Model 2</div><div class="p-card-price">15.500 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik3.jpg"><div class="p-card-title">Model 3</div><div class="p-card-price">18.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik4.jpg"><div class="p-card-title">Model 4</div><div class="p-card-price">21.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik5.jpg"><div class="p-card-title">Model 5</div><div class="p-card-price">24.500 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik6.jpeg"><div class="p-card-title">Model 6</div><div class="p-card-price">28.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik7.jpg"><div class="p-card-title">Model 7</div><div class="p-card-price">32.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik8.jpg"><div class="p-card-title">Model 8</div><div class="p-card-price">35.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="images/bileklik9.jpg"><div class="p-card-title">Model 9</div><div class="p-card-price">38.000 ₺</div></a>
+
+        <a href="urun-detay.html" class="product-card"><img src="https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=500"><div class="p-card-title">Su Yolu Bileklik</div><div class="p-card-price">45.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500"><div class="p-card-title">Altın Kelepçe</div><div class="p-card-price">24.000 ₺</div></a>
+        <a href="urun-detay.html" class="product-card"><img src="https://images.unsplash.com/photo-1573408301145-b98c4654440f?w=500"><div class="p-card-title">Minimalist Bileklik</div><div class="p-card-price">9.500 ₺</div></a>
+    </div>
+</section>
+
+<footer>&copy; 2026 EDDE JEWELRY. Tüm Hakları Saklıdır.</footer>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        let sepet = JSON.parse(localStorage.getItem('edde_sepet')) || [];
+        let toplamAdet = 0;
+        sepet.forEach(urun => { toplamAdet += urun.adet; });
+        document.getElementById('cartBadgeCount').innerText = toplamAdet;
+    });
+
+    function toggleMenu(event, menuId) {
+        event.preventDefault();
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+            if(m.id !== menuId) m.classList.remove('show');
+        });
+        document.getElementById(menuId).classList.toggle('show');
+    }
+
+    function toggleLang(event) {
+        event.preventDefault();
+        document.getElementById('langOptions').classList.toggle('show');
+    }
+
+    function changeLang(s) {
+        document.getElementById('activeLang').innerText = s + ' ▾';
+        document.getElementById('langOptions').classList.remove('show');
+    }
+
+    window.onclick = function(e) {
+        if (!e.target.matches('.nav-link')) document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+        if (!e.target.matches('.current-lang') && !e.target.matches('.lang-menu div')) document.getElementById('langOptions').classList.remove('show');
+    }
+
+    // ÜRÜNE TIKLANINCA BİLGİLERİNİ HAFIZAYA ALAN SİHİRLİ KOD
+    document.addEventListener('click', function(e) {
+        let card = e.target.closest('.product-card');
+        if(card && card.getAttribute('href') && card.getAttribute('href').includes('urun-detay.html')) {
+            let isim = card.querySelector('.p-card-title').innerText;
+            let fiyat = card.querySelector('.p-card-price').innerText;
+            let resim = card.querySelector('img').src;
+            localStorage.setItem('aktif_urun', JSON.stringify({isim: isim, fiyat: fiyat, resim: resim}));
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yap & Üye Ol | EDDE JEWELRY</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-color: #fafafa;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* --- ÜST MENÜ --- */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background-color: #fff;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .logo-box {
+        border: 2px solid #d4af37;
+        padding: 8px 15px;
+        display: inline-block;
+    }
+
+    .logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        letter-spacing: 3px;
+        font-weight: 600;
+        color: #000;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+
+    .nav-icons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nav-icons a {
+        text-decoration: none;
+        color: #1c1c1c;
+        font-size: 16px;
+        transition: color 0.3s;
+    }
+
+    .nav-icons a:hover {
+        color: #d4af37;
+    }
+
+    /* --- GİRİŞ / KAYIT ALANI --- */
+    .auth-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+
+    .auth-box {
+        width: 100%;
+        max-width: 450px;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        border-top: 3px solid #d4af37;
+    }
+
+    .auth-tabs {
+        display: flex;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    .auth-tab {
+        flex: 1;
+        text-align: center;
+        padding-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        color: #888;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .auth-tab.active {
+        color: #111;
+        font-weight: 600;
+        border-bottom: 2px solid #d4af37;
+        margin-bottom: -2px;
+    }
+
+    .auth-form {
+        display: none;
+        animation: fadeIn 0.4s;
+    }
+
+    .auth-form.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: #d4af37;
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.1);
+    }
+
+    .forgot-password {
+        display: block;
+        text-align: right;
+        font-size: 12px;
+        color: #888;
+        text-decoration: none;
+        margin-top: -10px;
+        margin-bottom: 20px;
+        transition: color 0.2s;
+    }
+
+    .forgot-password:hover {
+        color: #d4af37;
+        text-decoration: underline;
+    }
+
+    .btn-submit {
+        width: 100%;
+        background-color: #111;
+        color: #fff;
+        border: none;
+        padding: 15px;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        cursor: pointer;
+        border-radius: 4px;
+        text-transform: uppercase;
+        transition: background-color 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #d4af37;
+    }
+
+
+    .message-box {
+        font-size: 13px;
+        text-align: center;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 4px;
+        display: none; /* JS ile görünür yapılacak */
+    }
+
+    .message-error { background-color: #fdeaea; color: #e74c3c; border: 1px solid #fad2d2; }
+    .message-success { background-color: #eafaf1; color: #2ecc71; border: 1px solid #d1f2e0; }
+
+    footer {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 30px;
+        text-align: center;
+        font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" style="text-decoration: none;">
+    <div class="logo-box">
+      <div class="logo">EDDE JEWELRY</div>
+    </div>
+  </a>
+  <div class="nav-icons">
+    <a href="index.html" style="font-size: 14px; font-weight: 500;">✕ Kapat</a>
+  </div>
+</header>
+
+<div class="auth-wrapper">
+  <div class="auth-box">
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Giriş Yap</div>
+      <div class="auth-tab" id="tabRegister" onclick="switchTab('register')">Üye Ol</div>
+    </div>
+
+    <form class="auth-form active" id="formLogin" onsubmit="handleLogin(event)">
+      <div id="loginMessage" class="message-box"></div>
+
+      <div class="form-group">
+        <label>E-Posta Adresi</label>
+        <input type="email" id="loginEmail" placeholder="ornek@mail.com" required>
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required>
+      </div>
+      <a href="#" class="forgot-password">Şifremi Unuttum</a>
+
+      <button type="submit" class="btn-submit">Giriş Yap</button>
+    </form>
+
+    <form class="auth-form" id="formRegister" onsubmit="handleRegister(event)">
+      <div id="registerMessage" class="message-box"></div>
+
+      <div class="form-group">
+        <label>Ad Soyad</label>
+        <input type="text" id="regName" placeholder="Adınız Soyadınız" required>
+      </div>
+      <div class="form-group">
+        <label>E-Posta Adresi</label>
+        <input type="email" id="regEmail" placeholder="ornek@mail.com" required>
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="regPassword" placeholder="En az 6 karakter" minlength="6" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Kayıt Ol</button>
+    </form>
+
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 EDDE JEWELRY. Tüm Hakları Saklıdır. Kişisel verileriniz güvendedir.
+</footer>
+
+<script>
+
+  function switchTab(tabName) {
+      document.getElementById('tabLogin').classList.remove('active');
+      document.getElementById('tabRegister').classList.remove('active');
+      document.getElementById('formLogin').classList.remove('active');
+      document.getElementById('formRegister').classList.remove('active');
+
+      // Geçiş yapınca eski uyarı mesajlarını temizle
+      document.getElementById('loginMessage').style.display = 'none';
+      document.getElementById('registerMessage').style.display = 'none';
+
+      if (tabName === 'login') {
+          document.getElementById('tabLogin').classList.add('active');
+          document.getElementById('formLogin').classList.add('active');
+      } else {
+          document.getElementById('tabRegister').classList.add('active');
+          document.getElementById('formRegister').classList.add('active');
+      }
+  }
+
+
+  function showMessage(elementId, message, isSuccess) {
+      let el = document.getElementById(elementId);
+      el.innerText = message;
+      el.style.display = 'block';
+      if(isSuccess) {
+          el.className = 'message-box message-success';
+      } else {
+          el.className = 'message-box message-error';
+      }
+  }
+
+
+  function handleRegister(event) {
+      event.preventDefault(); // Sayfanın yenilenmesini engelle
+
+      let name = document.getElementById('regName').value;
+      let email = document.getElementById('regEmail').value;
+      let password = document.getElementById('regPassword').value;
+
+
+      let users = JSON.parse(localStorage.getItem('edde_users')) || [];
+
+
+      let userExists = users.find(u => u.email === email);
+
+      if (userExists) {
+          showMessage('registerMessage', 'Bu e-posta adresi ile zaten bir hesap var.', false);
+      } else {
+
+          users.push({ name: name, email: email, password: password });
+          localStorage.setItem('edde_users', JSON.stringify(users));
+
+          showMessage('registerMessage', 'Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...', true);
+
+
+          setTimeout(() => {
+              document.getElementById('formRegister').reset(); // Formu temizle
+              document.getElementById('loginEmail').value = email; // Maili giriş kısmına hazır yaz
+              switchTab('login');
+              showMessage('loginMessage', 'Lütfen oluşturduğunuz şifre ile giriş yapın.', true);
+          }, 2000);
+      }
+  }
+
+
+  function handleLogin(event) {
+      event.preventDefault();
+
+      let email = document.getElementById('loginEmail').value;
+      let password = document.getElementById('loginPassword').value;
+
+
+      let users = JSON.parse(localStorage.getItem('edde_users')) || [];
+
+
+      let matchedUser = users.find(u => u.email === email);
+
+      if (!matchedUser) {
+          // Mail bulunamadı
+          showMessage('loginMessage', 'Bu e-posta adresine ait bir hesap bulunamadı.', false);
+      } else if (matchedUser.password !== password) {
+          // Mail var ama şifre yanlış
+          showMessage('loginMessage', 'Hatalı şifre girdiniz, lütfen tekrar deneyin.', false);
+      } else {
+
+          showMessage('loginMessage', 'Giriş başarılı! Ana sayfaya yönlendiriliyorsunuz...', true);
+
+
+          localStorage.setItem('edde_currentUser', JSON.stringify(matchedUser));
+
+
+          setTimeout(() => {
+              window.location.href = "index.html";
+          }, 1500);
+      }
+  }
+</script>
+
+</body>
+</html>

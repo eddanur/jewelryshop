@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alışveriş Sepeti | EDDE JEWELRY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafafa; color: #333; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background-color: #fff; border-bottom: 1px solid #f0f0f0; }
+        .logo-box { border: 2px solid #d4af37; padding: 8px 15px; display: inline-block; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 3px; font-weight: 600; color: #000; text-transform: uppercase; text-decoration: none; }
+        .cart-wrapper { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; gap: 30px; flex-wrap: wrap; }
+        .cart-left { flex: 2; min-width: 300px; background-color: #fff; padding: 30px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); border: 1px solid #eedcbf; }
+        .cart-title { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 25px; color: #111; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid #f9f9f9; }
+        .cart-item img { width: 90px; height: 110px; object-fit: cover; border-radius: 4px; }
+        .item-details { flex: 1; padding-left: 20px; }
+        .item-title { font-size: 15px; font-weight: 500; margin-bottom: 5px; color: #222; }
+        .qty-controls { display: flex; align-items: center; gap: 15px; margin-top: 5px; }
+        .qty-box { display: flex; align-items: center; border: 1px solid #ddd; border-radius: 4px; width: 90px; }
+        .qty-btn { background-color: #f9f9f9; border: none; padding: 5px 12px; cursor: pointer; }
+        .qty-num { flex: 1; text-align: center; font-size: 14px; border-left: 1px solid #ddd; border-right: 1px solid #ddd; padding: 5px 0; }
+        .item-price { font-weight: 600; color: #d4af37; font-size: 16px; text-align: right; }
+        .cart-right { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+        .summary-box, .payment-box { background-color: #fff; padding: 25px; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); border: 1px solid #f0f0f0; }
+        .summary-total { font-size: 18px; font-weight: 600; color: #d4af37; display: flex; justify-content: space-between; margin-top: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 12px; margin-bottom: 5px; color: #555; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn-pay { width: 100%; background: #111; color: #fff; padding: 15px; border: none; cursor: pointer; text-transform: uppercase; font-weight: 600; }
+    </style>
+</head>
+<body onload="sepetiYukle()">
+
+<header>
+    <a href="index.html" class="logo-box"><div class="logo">EDDE JEWELRY</div></a>
+</header>
+
+<div class="cart-wrapper">
+    <div class="cart-left" id="cartItemsContainer"><h2 class="cart-title">Alışveriş Sepetiniz</h2></div>
+    <div class="cart-right">
+        <div class="summary-box">
+            <h3 class="box-title">Sipariş Özeti</h3>
+            <div class="summary-total">Ödenecek Tutar: <span id="genelToplamMetni">0 ₺</span></div>
+        </div>
+        <div class="payment-box">
+            <h3 class="box-title">Kart Bilgileri</h3>
+            <form onsubmit="orderComplete(event)">
+                <div class="form-group"><label>Kart Üzerindeki İsim</label><input type="text" placeholder="Ad Soyad" required></div>
+                <div class="form-group"><label>Kart Numarası</label><input type="text" maxlength="19" oninput="formatKartNo(this)" placeholder="0000 0000 0000 0000" required></div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group"><label>Son Kullanma</label><input type="text" maxlength="5" oninput="formatTarih(this)" placeholder="AA/YY" required></div>
+                    <div class="form-group"><label>CVC / CCV</label><input type="password" maxlength="3" placeholder="***" required onkeypress="return event.charCode >= 48 && event.charCode <= 57"></div>
+                </div>
+                <button type="submit" class="btn-pay" id="satinAlButonu">Siparişi Tamamla</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatKartNo(i) { i.value = i.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim(); }
+    function formatTarih(i) { i.value = i.value.replace(/\D/g, '').replace(/(.{2})/, '$1/').substring(0, 5); }
+
+    function sepetiYukle() {
+        let sepet = JSON.parse(localStorage.getItem('edde_sepet')) || [];
+        let container = document.getElementById('cartItemsContainer');
+        container.innerHTML = '<h2 class="cart-title">Alışveriş Sepetiniz</h2>';
+        let genelToplam = 0;
+
+        sepet.forEach((urun, index) => {
+            // Fiyatı metinden sayıya çevir (Örn: "18.500 ₺" -> 18500)
+            let fiyatSayi = parseInt(urun.fiyat.replace(/\D/g, ''));
+            let satirToplam = fiyatSayi * urun.adet;
+            genelToplam += satirToplam;
+
+            container.innerHTML += `
+            <div class="cart-item">
+                <img src="${urun.resim}">
+                <div class="item-details">
+                    <div class="item-title">${urun.isim}</div>
+                    <div class="qty-controls">
+                        <div class="qty-box">
+                            <button class="qty-btn" type="button" onclick="adetDegistir(${index}, -1)">-</button>
+                            <div class="qty-num">${urun.adet}</div>
+                            <button class="qty-btn" type="button" onclick="adetDegistir(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-price">${satirToplam.toLocaleString('tr-TR')} ₺</div>
+            </div>`;
+        });
+        document.getElementById('genelToplamMetni').innerText = genelToplam.toLocaleString('tr-TR') + ' ₺';
+        document.getElementById('satinAlButonu').innerText = "Siparişi Tamamla (" + genelToplam.toLocaleString('tr-TR') + " ₺)";
+    }
+
+    function adetDegistir(index, degisim) {
+        let sepet = JSON.parse(localStorage.getItem('edde_sepet')) || [];
+        sepet[index].adet = Math.max(1, sepet[index].adet + degisim);
+        localStorage.setItem('edde_sepet', JSON.stringify(sepet));
+        sepetiYukle();
+    }
+
+    function orderComplete(e) { e.preventDefault(); alert("Siparişiniz alındı!"); localStorage.removeItem('edde_sepet'); window.location.href="index.html"; }
+</script>
+</body>
+</html>

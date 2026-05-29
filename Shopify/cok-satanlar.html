@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çok Satanlar | EDDE JEWELRY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafafa; }
+
+        /* HEADER - ORTAK YAPI */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background-color: #fff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+        .logo-box { border: 2px solid #d4af37; padding: 8px 15px; display: inline-block; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 3px; font-weight: 600; color: #000; text-transform: uppercase; text-decoration: none; }
+
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li { position: relative; padding: 10px 0; cursor: pointer; font-size: 13px; font-weight: 500; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background: #fff; width: 180px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 10px 0; z-index: 200; }
+        .dropdown-menu a { display: block; padding: 8px 20px; text-decoration: none; color: #555; font-size: 12px; }
+        .dropdown-menu a:hover { color: #d4af37; background: #fafafa; }
+        nav ul li:hover .dropdown-menu { display: block; }
+
+        .cart-badge { background-color: #d4af37; color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; top: -8px; right: -10px; }
+
+        /* VİTRİN */
+        .category-hero { background-color: #111; color: #fff; padding: 60px 20px; text-align: center; margin-bottom: 50px; }
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 30px; max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .product-card { background: #fff; padding-bottom: 15px; text-align: center; cursor: pointer; text-decoration: none; color: inherit; display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .product-card:hover { transform: translateY(-5px); transition: 0.3s; }
+        .product-card img { width: 100%; height: 280px; object-fit: cover; margin-bottom: 15px; }
+        .p-card-title { font-size: 14px; font-weight: 500; margin-bottom: 5px; }
+        .p-card-price { font-size: 16px; font-weight: 600; color: #d4af37; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-box"><div class="logo">EDDE JEWELRY</div></a>
+    <nav>
+        <ul>
+            <li>Yeni Ürünler
+                <div class="dropdown-menu"><a href="yeni-sezon.html">Yeni Sezon</a><a href="cok-satanlar.html">Çok Satanlar</a></div>
+            </li>
+            <li>Kadın Takı
+                <div class="dropdown-menu">
+                    <a href="kadin-kupe.html">Kadın Küpe</a>
+                    <a href="kadin-kolye.html">Altın Kolyeler</a>
+                    <a href="kadin-bileklik.html">Zarif Bileklikler</a>
+                </div>
+            </li>
+            <li>Erkek Takı
+                <div class="dropdown-menu"><a href="erkek-yuzuk.html">Erkek Yüzük</a><a href="erkek-saat.html">Saat Modelleri</a></div>
+            </li>
+            <li>Çocuk Aksesuar
+                <div class="dropdown-menu"><a href="cocuk-aksesuar.html">Çocuk Koleksiyonu</a></div>
+            </li>
+        </ul>
+    </nav>
+    <a href="sepet.html" style="position: relative;">🛒<div class="cart-badge" id="cartBadgeCount">0</div></a>
+</header>
+
+<div class="category-hero"><h1>En Çok Satanlar</h1></div>
+
+<section class="products-grid">
+    <a href="urun-detay.html" class="product-card"><img src="images/küpe1.jpg"><div class="p-card-title">Baget Pırlanta Küpe</div><div class="p-card-price">18.500 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/kolye1.jpg"><div class="p-card-title">Pırlanta Baget Kolye</div><div class="p-card-price">22.000 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/eyüzük1.webp"><div class="p-card-title">Klasik Erkek Yüzük</div><div class="p-card-price">5.500 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/saat1.jpg"><div class="p-card-title">Klasik Deri Saat</div><div class="p-card-price">12.500 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/cocuk1.jpg"><div class="p-card-title">Çocuk Bileklik</div><div class="p-card-price">2.500 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/küpe3.jpeg"><div class="p-card-title">İnci Detaylı Küpe</div><div class="p-card-price">12.800 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/kolye5.jpg"><div class="p-card-title">Su Yolu Pırlanta Kolye</div><div class="p-card-price">45.000 ₺</div></a>
+    <a href="urun-detay.html" class="product-card"><img src="images/eyüzük5.webp"><div class="p-card-title">Özel İşçilikli Yüzük</div><div class="p-card-price">8.900 ₺</div></a>
+</section>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        let sepet = JSON.parse(localStorage.getItem('edde_sepet')) || [];
+        let toplam = 0; sepet.forEach(u => toplam += u.adet);
+        document.getElementById('cartBadgeCount').innerText = toplam;
+    });
+
+    document.addEventListener('click', function(e) {
+        let card = e.target.closest('.product-card');
+        if(card && card.getAttribute('href') === 'urun-detay.html') {
+            localStorage.setItem('aktif_urun', JSON.stringify({
+                isim: card.querySelector('.p-card-title').innerText,
+                fiyat: card.querySelector('.p-card-price').innerText,
+                resim: card.querySelector('img').src
+            }));
+        }
+    });
+</script>
+</body>
+</html>
