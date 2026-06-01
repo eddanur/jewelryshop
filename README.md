@@ -47,6 +47,21 @@ Sistemde güvenlik katmanı aktif edilmiş olup, rol bazlı yetkilendirme (RBAC)
 **Test İçin Hazırlanan Kullanıcılar:**
 * **Admin Yetkili:** Kullanıcı Adı: `admin` | Şifre: `admin123`
 * **Normal Kullanıcı:** Kullanıcı Adı: `musteri` | Şifre: `musteri123`
+* ## ⚙️ Kurulum ve Çalıştırma (Nasıl Kullanılır?)
+
+Bu projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
+
+1. **Projeyi Klonlayın:**
+   `git clone https://github.com/eddanur/jewelryshop.git`
+2. **Backend (Spring Boot) Çalıştırma:**
+   * Projeyi IntelliJ IDEA veya Eclipse gibi bir IDE ile açın.
+   * Maven bağımlılıklarının (dependencies) inmesini bekleyin.
+   * `JewelryshopApplication.java` dosyasını bularak projeyi `Run` (Başlat) seçeneğiyle çalıştırın.
+   * Sunucu varsayılan olarak `http://localhost:8080` portunda ayağa kalkacaktır. (Veritabanı olarak in-memory H2 Database kullanıldığı için ekstra bir veritabanı kurulumuna gerek yoktur).
+3. **Frontend (Ön Yüz) Çalıştırma:**
+   * Proje dizinindeki `Shopify` klasörünü açın.
+   * `index.html` dosyasına çift tıklayarak veya bir Live Server eklentisi kullanarak tarayıcıda açın.
+   * Sağ üstteki dişli (⚙️) ikonuna tıklayarak Admin paneline erişebilir (`admin` / `admin123` şifresiyle) sistemi test edebilirsiniz.
 
 ---
 *Geliştirici: [Edanur Dede]*
