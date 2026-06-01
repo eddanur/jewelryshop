@@ -8,120 +8,81 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: #fafafa; color: #333; }
-
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background-color: #fff; border-bottom: 1px solid #f0f0f0; }
         .logo-box { border: 2px solid #d4af37; padding: 8px 15px; display: inline-block; }
         .logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 3px; font-weight: 600; color: #000; text-decoration: none; }
 
-
         .search-container { max-width: 800px; margin: 60px auto 40px; text-align: center; padding: 0 20px; }
-        .search-container h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: #111; margin-bottom: 20px; }
-        .search-input-box { position: relative; width: 100%; display: flex; }
-        .search-input-box input { width: 100%; padding: 20px 25px; font-size: 16px; border: 2px solid #eedcbf; border-radius: 50px; outline: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
-        .search-input-box input:focus { border-color: #d4af37; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.15); }
-
-
-        .popular-tags { margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .tag { font-size: 12px; color: #666; background: #fff; padding: 8px 15px; border: 1px solid #ddd; border-radius: 20px; cursor: pointer; transition: 0.3s; }
-        .tag:hover { background: #d4af37; color: #fff; border-color: #d4af37; }
-
+        .search-input-box input { width: 100%; padding: 20px 25px; font-size: 16px; border: 2px solid #eedcbf; border-radius: 50px; outline: none; transition: 0.3s; }
+        .search-input-box input:focus { border-color: #d4af37; }
 
         .results-section { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
         .results-info { font-size: 14px; color: #555; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
 
         .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
-        .product-card { background: #fff; padding-bottom: 15px; border-radius: 4px; text-align: center; cursor: pointer; transition: transform 0.3s; text-decoration: none; color: inherit; display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-10px); border-color: #eedcbf; }
+        .product-card { background: #fff; padding-bottom: 15px; border-radius: 4px; text-align: center; cursor: pointer; transition: transform 0.3s; text-decoration: none; color: inherit; display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .product-card:hover { transform: translateY(-10px); }
         .product-card img { width: 100%; height: 250px; object-fit: cover; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 15px; }
-        .p-card-title { font-size: 13px; font-weight: 500; color: #333; margin-bottom: 5px; }
+        .p-card-title { font-size: 13px; font-weight: 500; color: #333; }
         .p-card-price { font-size: 15px; font-weight: 600; color: #d4af37; }
-
-        footer { background-color: #1a1a1a; color: #fff; padding: 40px; text-align: center; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="index.html" style="text-decoration: none;">
-        <div class="logo-box"><div class="logo">EDDE JEWELRY</div></div>
-    </a>
+    <a href="index.html" class="logo-box"><div class="logo">EDDE JEWELRY</div></a>
     <a href="index.html" style="color:#555; text-decoration:none; font-size:14px;">✕ Kapat</a>
 </header>
 
 <div class="search-container">
     <h1>Ne aramıştınız?</h1>
     <div class="search-input-box">
-        <input type="text" id="searchInput" placeholder="Yüzük, kolye, bileklik veya marka arayın..." onkeyup="ara()">
-    </div>
-
-    <div class="popular-tags">
-        <span class="tag" onclick="hazirAra('Baget')">Baget Yüzük</span>
-        <span class="tag" onclick="hazirAra('Zümrüt')">Zümrüt</span>
-        <span class="tag" onclick="hazirAra('Safir')">Safir Kolye</span>
-        <span class="tag" onclick="hazirAra('Kelepçe')">Kelepçe</span>
+        <input type="text" id="searchInput" placeholder="Ürün adı, kategori veya özellik arayın..." onkeyup="filtrele()">
     </div>
 </div>
 
 <div class="results-section">
-    <div class="results-info" id="sonucYazisi">Tüm ürünler gösteriliyor...</div>
-
-    <div class="products-grid" id="urunListesi">
-        <a href="urun-detay.html" class="product-card" data-isim="Pırlanta Baget Yüzük">
-            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400" alt="Yüzük">
-            <div class="p-card-title">Pırlanta Baget Yüzük</div>
-            <div class="p-card-price">18.500 ₺</div>
-        </a>
-        <a href="urun-detay.html" class="product-card" data-isim="Zümrüt Damla Küpe">
-            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400" alt="Küpe">
-            <div class="p-card-title">Zümrüt Damla Küpe</div>
-            <div class="p-card-price">12.250 ₺</div>
-        </a>
-        <a href="urun-detay.html" class="product-card" data-isim="Altın Kelepçe Bilezik">
-            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400" alt="Bileklik">
-            <div class="p-card-title">Altın Kelepçe Bilezik</div>
-            <div class="p-card-price">24.000 ₺</div>
-        </a>
-        <a href="urun-detay.html" class="product-card" data-isim="Safir İnci Kolye">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400" alt="Kolye">
-            <div class="p-card-title">Safir İnci Kolye</div>
-            <div class="p-card-price">9.800 ₺</div>
-        </a>
-    </div>
+    <div class="results-info" id="sonucYazisi">Tüm ürünler yükleniyor...</div>
+    <div class="products-grid" id="urunListesi"></div>
 </div>
 
-<footer>&copy; 2026 EDDE JEWELRY. Tüm Hakları Saklıdır.</footer>
-
 <script>
+    const authHeader = 'Basic ' + btoa('admin:admin123');
+    let tumUrunler = [];
 
-    function ara() {
-        let arananKelime = document.getElementById("searchInput").value.toLowerCase();
-        let urunler = document.querySelectorAll(".product-card");
-        let bulunanSayisi = 0;
+    // Sayfa açıldığında tüm ürünleri veritabanından çek
+    async function verileriGetir() {
+        try {
+            const res = await fetch('http://localhost:8080/api/products', { headers: { 'Authorization': authHeader }});
+            tumUrunler = await res.json();
+            ekranaBas(tumUrunler);
+        } catch (err) { document.getElementById("sonucYazisi").innerText = "Ürünler yüklenirken bir hata oluştu."; }
+    }
 
-        urunler.forEach(urun => {
-            let urunIsmi = urun.getAttribute("data-isim").toLowerCase();
-            if(urunIsmi.includes(arananKelime)) {
-                urun.style.display = "block"; // Eşleşirse göster
-                bulunanSayisi++;
-            } else {
-                urun.style.display = "none"; // Eşleşmezse gizle
-            }
+    function ekranaBas(liste) {
+        const grid = document.getElementById("urunListesi");
+        grid.innerHTML = "";
+        liste.forEach(urun => {
+            grid.innerHTML += `
+                <a href="urun-detay.html?id=${urun.id}" class="product-card">
+                    <img src="${urun.imageUrl || 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400'}" alt="${urun.name}">
+                    <div class="p-card-title">${urun.name}</div>
+                    <div class="p-card-price">${urun.price} ₺</div>
+                </a>`;
         });
-
-
-        if(arananKelime === "") {
-            document.getElementById("sonucYazisi").innerText = "Tüm ürünler gösteriliyor...";
-        } else {
-            document.getElementById("sonucYazisi").innerText = "'" + document.getElementById("searchInput").value + "' için " + bulunanSayisi + " sonuç bulundu.";
-        }
+        document.getElementById("sonucYazisi").innerText = liste.length + " sonuç bulundu.";
     }
 
-
-    function hazirAra(kelime) {
-        document.getElementById("searchInput").value = kelime;
-        ara();
+    function filtrele() {
+        const kelime = document.getElementById("searchInput").value.toLowerCase();
+        const filtrelenmis = tumUrunler.filter(u =>
+            u.name.toLowerCase().includes(kelime) ||
+            u.category.toLowerCase().includes(kelime)
+        );
+        ekranaBas(filtrelenmis);
     }
+
+    window.onload = verileriGetir;
 </script>
-
 </body>
 </html>

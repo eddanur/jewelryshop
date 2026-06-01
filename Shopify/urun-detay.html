@@ -73,7 +73,6 @@
             color: #d4af37;
         }
 
-        /* Sepet Rozeti (Badge) Eklentisi */
         .cart-badge {
             background-color: #d4af37;
             color: white;
@@ -100,7 +99,6 @@
             flex-wrap: wrap;
         }
 
-        /* Sol Taraf: Fotoğraflar */
         .product-gallery {
             flex: 1;
             min-width: 400px;
@@ -115,6 +113,7 @@
             border-radius: 4px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background-color: #f9f9f9;
         }
 
         .main-image-box img {
@@ -128,7 +127,6 @@
             transform: scale(1.05);
         }
 
-        /* Alt Fotoğraflar */
         .thumbnail-list {
             display: flex;
             gap: 15px;
@@ -142,6 +140,7 @@
             object-fit: cover;
             border: 2px solid transparent;
             transition: 0.3s;
+            background-color: #f9f9f9;
         }
 
         .thumb:hover {
@@ -149,7 +148,6 @@
             opacity: 0.8;
         }
 
-        /* Sağ Taraf: Detaylar */
         .product-info {
             flex: 1;
             min-width: 400px;
@@ -179,7 +177,6 @@
             color: #111;
             margin-bottom: 15px;
             line-height: 1.2;
-            transition: opacity 0.3s;
         }
 
         .product-price {
@@ -218,7 +215,6 @@
             font-size: 14px;
         }
 
-        /* İşlem Alanı */
         .action-area {
             display: flex;
             gap: 20px;
@@ -258,7 +254,6 @@
             line-height: 48px;
         }
 
-        /* YENİLENEN SEPETE EKLE BUTONU */
         .btn-add-to-cart {
             flex: 1;
             height: 50px;
@@ -276,6 +271,16 @@
 
         .btn-add-to-cart:hover {
             background-color: #d4af37;
+        }
+
+        /* Yükleniyor animasyonu */
+        .loading-text {
+            font-size: 18px;
+            color: #d4af37;
+            text-align: center;
+            width: 100%;
+            margin-top: 50px;
+            font-weight: 500;
         }
 
         /* --- ALT KISIM: BENZER ÜRÜNLER --- */
@@ -347,6 +352,7 @@
             padding: 40px;
             text-align: center;
             font-size: 12px;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -367,28 +373,29 @@
     </div>
 </header>
 
-<div class="product-detail-container">
+<div id="loadingMessage" class="loading-text">Ürün Hazırlanıyor... ✨</div>
 
+<div class="product-detail-container" id="productDetailArea" style="display: none;">
     <div class="product-gallery">
         <div class="main-image-box">
-            <img id="mainImage" src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800" alt="Ürün Fotoğrafı">
+            <img id="mainImage" src="" alt="Ürün Fotoğrafı">
         </div>
         <div class="thumbnail-list">
-            <img class="thumb" id="thumb1" src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=200" onclick="changeImage(this.src)" alt="Açı 1">
-            <img class="thumb" src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=200" onclick="changeImage(this.src)" alt="Açı 2">
-            <img class="thumb" src="https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=200" onclick="changeImage(this.src)" alt="Açı 3">
+            <img class="thumb" id="thumb1" src="" onclick="changeImage(this.src)" alt="Açı 1">
+            <img class="thumb" id="thumb2" src="" onclick="changeImage(this.src)" alt="Açı 2">
+            <img class="thumb" id="thumb3" src="" onclick="changeImage(this.src)" alt="Açı 3">
         </div>
     </div>
 
     <div class="product-info">
         <div class="breadcrumb">
-            <a href="index.html">Ana Sayfa</a> / Ürün Detay
+            <a href="index.html">Ana Sayfa</a> / <span id="breadCategory">Ürün Detay</span>
         </div>
 
-        <h1 class="product-title" id="pTitle">Zümrüt Damla Küpe</h1>
+        <h1 class="product-title" id="pTitle">Ürün Adı</h1>
 
         <div class="product-price" id="pPrice">
-            12.250 ₺
+            0 ₺
         </div>
 
         <p class="product-desc">
@@ -412,35 +419,11 @@
             <button class="btn-add-to-cart" id="ekleBtn" onclick="sepeteEkle()">SEPETE EKLE</button>
         </div>
     </div>
-
 </div>
 
-<section class="related-section">
-    <h2 class="section-title">İlgini Çekebilecek Diğer Tasarımlar</h2>
-    <div class="products-grid">
-        <div class="product-card" onclick="urunuDegistir('Pırlanta Baget Yüzük', '18.500 ₺', 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800')">
-            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400" alt="Yüzük">
-            <div class="p-card-title">Pırlanta Baget Yüzük</div>
-            <div class="p-card-price">18.500 ₺</div>
-        </div>
-
-        <div class="product-card" onclick="urunuDegistir('Altın Kelepçe Bilezik', '24.000 ₺', 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800')">
-            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400" alt="Bileklik">
-            <div class="p-card-title">Altın Kelepçe Bilezik</div>
-            <div class="p-card-price">24.000 ₺</div>
-        </div>
-
-        <div class="product-card" onclick="urunuDegistir('Safir İnci Kolye', '9.800 ₺', 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800')">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400" alt="Kolye">
-            <div class="p-card-title">Safir İnci Kolye</div>
-            <div class="p-card-price">9.800 ₺</div>
-        </div>
-
-        <div class="product-card" onclick="urunuDegistir('Zarif İtalyan Zincir', '14.300 ₺', 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800')">
-            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400" alt="Bileklik">
-            <div class="p-card-title">Zarif İtalyan Zincir</div>
-            <div class="p-card-price">14.300 ₺</div>
-        </div>
+<section class="related-section" id="relatedSection" style="display: none;">
+    <h2 class="section-title">İlgini Çekebilecek Benzer Tasarımlar</h2>
+    <div class="products-grid" id="relatedContainer">
     </div>
 </section>
 
@@ -449,22 +432,95 @@
 </footer>
 
 <script>
+    const authHeader = 'Basic ' + btoa('admin:admin123');
+
     window.addEventListener('DOMContentLoaded', () => {
         sepetBadgeGuncelle();
 
-        let aktifUrun = JSON.parse(localStorage.getItem('aktif_urun'));
+        const urlParams = new URLSearchParams(window.location.search);
+        const urunId = urlParams.get('id');
 
-        if(aktifUrun) {
-            document.getElementById('pTitle').innerText = aktifUrun.isim;
-            document.getElementById('pPrice').innerText = aktifUrun.fiyat;
-            document.getElementById('mainImage').src = aktifUrun.resim;
-
-            // Tüm alt fotoğrafları da seçilen ürünün fotoğrafı yapıyoruz.
-            // Böylece tıklayınca başka resim çıkmaz.
-            let thumbs = document.querySelectorAll('.thumb');
-            thumbs.forEach(t => t.src = aktifUrun.resim);
+        if (urunId) {
+            urunDetayiniGetir(urunId);
+        } else {
+            document.getElementById('loadingMessage').innerText = "Ürün bulunamadı!";
         }
     });
+
+    async function urunDetayiniGetir(id) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/products/${id}`, {
+                method: 'GET',
+                headers: { 'Authorization': authHeader }
+            });
+
+            if (response.ok) {
+                const urun = await response.json();
+
+                document.getElementById('pTitle').innerText = urun.name;
+                document.getElementById('pPrice').innerText = urun.price + " ₺";
+                document.getElementById('breadCategory').innerText = urun.category;
+
+                const resimUrl = urun.imageUrl && urun.imageUrl !== "" ? urun.imageUrl : 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800';
+                document.getElementById('mainImage').src = resimUrl;
+                document.getElementById('thumb1').src = resimUrl;
+                document.getElementById('thumb2').src = resimUrl;
+                document.getElementById('thumb3').src = resimUrl;
+
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('productDetailArea').style.display = 'flex';
+
+                // BURASI ÖNEMLİ: Artık sadece ID'yi değil, Kategoriyi de gönderiyoruz ki BENZER olanları bulsun
+                benzerUrunleriGetir(id, urun.category);
+
+            } else {
+                document.getElementById('loadingMessage').innerText = "Bu ürün artık vitrinde değil.";
+            }
+        } catch (error) {
+            console.error("Bağlantı hatası:", error);
+            document.getElementById('loadingMessage').innerText = "Sunucuya bağlanılamadı.";
+        }
+    }
+
+    // --- ARKA PLANDAN "BENZER (AYNI KATEGORİ)" ÜRÜNLERİ ÇEKME SİHRİ ---
+    async function benzerUrunleriGetir(mevcutUrunId, mevcutKategori) {
+        try {
+            const response = await fetch('http://localhost:8080/api/products', {
+                method: 'GET',
+                headers: { 'Authorization': authHeader }
+            });
+
+            if (response.ok) {
+                const tumUrunler = await response.json();
+                const container = document.getElementById('relatedContainer');
+                container.innerHTML = '';
+
+                // Sadece baktığımız ürünle "AYNI KATEGORİDE" olanları al (Kolyeyse kolye, yüzükse yüzük) ve kendini listeden çıkar.
+                const benzerUrunler = tumUrunler
+                    .filter(urun => urun.id != mevcutUrunId && urun.category === mevcutKategori)
+                    .reverse()
+                    .slice(0, 4);
+
+                if (benzerUrunler.length > 0) {
+                    benzerUrunler.forEach(urun => {
+                        const resimUrl = urun.imageUrl && urun.imageUrl !== "" ? urun.imageUrl : 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400';
+                        const urunKarti = `
+                            <a href="urun-detay.html?id=${urun.id}" class="product-card">
+                                <img src="${resimUrl}" alt="${urun.name}" onerror="this.src='https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400'">
+                                <div class="p-card-title">${urun.name}</div>
+                                <div class="p-card-price">${urun.price} ₺</div>
+                            </a>
+                        `;
+                        container.innerHTML += urunKarti;
+                    });
+
+                    document.getElementById('relatedSection').style.display = 'block';
+                }
+            }
+        } catch (error) {
+            console.error("Benzer ürünler çekilemedi:", error);
+        }
+    }
 
     function sepetBadgeGuncelle() {
         let sepet = JSON.parse(localStorage.getItem('edde_sepet')) || [];
@@ -516,24 +572,6 @@
         } else {
             window.location.href = "sepet.html";
         }
-    }
-
-    function urunuDegistir(yeniBaslik, yeniFiyat, yeniFotoUrl) {
-        document.getElementById('pTitle').innerText = yeniBaslik;
-        document.getElementById('pPrice').innerText = yeniFiyat;
-        document.getElementById('mainImage').src = yeniFotoUrl;
-
-        let thumbs = document.querySelectorAll('.thumb');
-        thumbs.forEach(t => t.src = yeniFotoUrl);
-
-        document.querySelector('.qty-num').innerText = 1;
-
-        let btn = document.getElementById('ekleBtn');
-        btn.innerText = "SEPETE EKLE";
-        btn.style.backgroundColor = "#111";
-        btn.style.borderColor = "#111";
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 

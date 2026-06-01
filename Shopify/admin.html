@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edde Jewelry | Yönetim Paneli</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f8f9fa; color: #333; padding: 40px; }
+
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-family: 'Playfair Display', serif; color: #111; letter-spacing: 2px; }
+        .header p { color: #777; font-size: 14px; margin-top: 5px; }
+
+        .container { display: flex; gap: 40px; max-width: 1200px; margin: 0 auto; align-items: flex-start; }
+
+        /* Form Kısmı (Ürün Ekleme / Güncelleme) */
+        .form-section { flex: 1; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 3px solid #d4af37; transition: 0.3s; }
+        .form-section.edit-mode { border-top: 3px solid #3498db; background-color: #f4faff; }
+        .form-section h2 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 22px; transition: color 0.3s; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 5px; color: #555; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; transition: border 0.3s; }
+        .form-group input:focus { outline: none; border-color: #d4af37; }
+
+        .btn-container { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-submit { flex: 1; background-color: #111; color: #fff; border: none; padding: 12px; font-size: 15px; border-radius: 4px; cursor: pointer; transition: background 0.3s; font-weight: 500; letter-spacing: 1px; }
+        .btn-submit:hover { background-color: #d4af37; }
+
+        .btn-cancel { display: none; flex: 1; background-color: #999; color: #fff; border: none; padding: 12px; font-size: 15px; border-radius: 4px; cursor: pointer; transition: 0.3s; font-weight: 500; }
+        .btn-cancel:hover { background-color: #777; }
+
+        /* Liste Kısmı */
+        .list-section { flex: 2; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .list-section h2 { font-family: 'Playfair Display', serif; margin-bottom: 20px; font-size: 22px; }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        th { background-color: #fdfaf2; color: #333; font-weight: 500; }
+
+        .product-img-mini { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+
+        /* Butonlar */
+        .action-btns { display: flex; gap: 5px; }
+        .btn-delete { background-color: #ff4d4d; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.3s; }
+        .btn-delete:hover { background-color: #cc0000; }
+
+        .btn-edit { background-color: #3498db; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.3s; }
+        .btn-edit:hover { background-color: #2980b9; }
+
+        .back-link { display: inline-block; margin-top: 20px; color: #111; text-decoration: none; font-size: 14px; font-weight: 500; border-bottom: 1px solid #111; }
+        .back-link:hover { color: #d4af37; border-color: #d4af37; }
+
+        /* Giriş Ekranı */
+        .login-card { max-width: 400px; margin: 80px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 3px solid #d4af37; text-align: center; }
+        .login-error { color: #ff4d4d; font-size: 13px; margin-top: 15px; display: none; }
+    </style>
+</head>
+<body>
+
+<div id="loginSection" class="login-card">
+    <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 25px; letter-spacing: 1px;">Yönetici Girişi</h2>
+    <div class="form-group" style="text-align: left;">
+        <label>Kullanıcı Adı</label>
+        <input type="text" id="loginUsername" placeholder="Kullanıcı adınızı girin">
+    </div>
+    <div class="form-group" style="text-align: left;">
+        <label>Şifre</label>
+        <input type="password" id="loginPassword" placeholder="Şifrenizi girin">
+    </div>
+    <button onclick="handleLogin()" class="btn-submit" style="margin-top: 10px; width: 100%;">Giriş Yap 🔐</button>
+    <div id="loginError" class="login-error">Hatalı kullanıcı adı veya şifre! ❌</div>
+    <br>
+    <a href="index.html" class="back-link">← Vitrine Dön</a>
+</div>
+
+<div id="adminContent" style="display: none;">
+    <div class="header">
+        <h1>EDDE JEWELRY</h1>
+        <p>Gizli Yönetim Paneli (Sadece Yetkili Erişim)</p>
+    </div>
+
+    <div class="container">
+        <div class="form-section" id="formCard">
+            <h2 id="formTitle">Yeni Ürün Ekle</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <label>Ürün Adı</label>
+                    <input type="text" id="name" required placeholder="Örn: Pırlanta Yüzük">
+                </div>
+                <div class="form-group">
+                    <label>Marka</label>
+                    <input type="text" id="brand" required placeholder="Örn: Edde Premium">
+                </div>
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="category" required>
+                        <option value="Kadın Küpe">Kadın Küpe</option>
+                        <option value="Kadın Kolye">Kadın Kolye</option>
+                        <option value="Kadın Bileklik">Kadın Bileklik</option>
+                        <option value="Erkek Yüzük">Erkek Yüzük</option>
+                        <option value="Erkek Saat">Erkek Saat</option>
+                        <option value="Çocuk Künye">Çocuk Künye</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Fiyat (₺)</label>
+                    <input type="number" step="0.01" id="price" required placeholder="Örn: 15000">
+                </div>
+                <div class="form-group">
+                    <label>Stok Adedi</label>
+                    <input type="number" id="stock" required placeholder="Örn: 10">
+                </div>
+                <div class="form-group">
+                    <label>Fotoğraf Linki (URL)</label>
+                    <input type="url" id="imageUrl" required placeholder="https://... ile başlayan resim linki">
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" id="submitBtn" class="btn-submit">Sisteme Ekle ✨</button>
+                    <button type="button" id="cancelBtn" class="btn-cancel" onclick="iptalEt()">İptal Et</button>
+                </div>
+            </form>
+            <a href="index.html" class="back-link">← Vitrine Dön</a>
+        </div>
+
+        <div class="list-section">
+            <h2>Depodaki Ürünler</h2>
+
+            <div class="search-box" style="margin-bottom: 20px;">
+                <input type="text" id="adminSearch" placeholder="🔍 Ürün ismiyle ara..."
+                       onkeyup="adminAra()"
+                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; outline: none;">
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Görsel</th>
+                    <th>ID</th>
+                    <th>Ürün Adı</th>
+                    <th>Fiyat</th>
+                    <th>Stok</th>
+                    <th>İşlem</th>
+                </tr>
+                </thead>
+                <tbody id="adminProductTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const authHeader = 'Basic ' + btoa('admin:admin123');
+    let depodakiUrunler = [];
+    let guncellenenUrunId = null;
+
+    // --- YENİ EKLENEN ARAMA FONKSİYONU ---
+    function adminAra() {
+        let input = document.getElementById("adminSearch");
+        let filter = input.value.toLowerCase();
+        let tablo = document.getElementById("adminProductTable");
+        let satirlar = tablo.getElementsByTagName("tr");
+
+        for (let i = 0; i < satirlar.length; i++) {
+            let isim = satirlar[i].getElementsByTagName("td")[2]; // 3. sütun Ürün Adı
+            if (isim) {
+                let txtValue = isim.textContent || isim.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    satirlar[i].style.display = "";
+                } else {
+                    satirlar[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    // --- GİRİŞ KONTROLÜ ---
+    function handleLogin() {
+        const user = document.getElementById('loginUsername').value;
+        const pas = document.getElementById('loginPassword').value;
+        if (user === 'admin' && pas === 'admin123') {
+            sessionStorage.setItem('isEddeAdmin', 'true');
+            document.getElementById('loginError').style.display = 'none';
+            ekraniGoster();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    }
+
+    function ekraniGoster() {
+        if (sessionStorage.getItem('isEddeAdmin') === 'true') {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            fetchAdminProducts();
+        } else {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('adminContent').style.display = 'none';
+        }
+    }
+
+    // --- 1. ÜRÜNLERİ LİSTELEME ---
+    async function fetchAdminProducts() {
+        try {
+            const response = await fetch('http://localhost:8080/api/products', {
+                headers: { 'Authorization': authHeader }
+            });
+            depodakiUrunler = await response.json();
+            const tableBody = document.getElementById('adminProductTable');
+            tableBody.innerHTML = '';
+
+            depodakiUrunler.forEach(product => {
+                const resim = product.imageUrl && product.imageUrl !== "" ? product.imageUrl : 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=100';
+                tableBody.innerHTML += `
+                    <tr>
+                        <td><img src="${resim}" class="product-img-mini"></td>
+                        <td>#${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.price} ₺</td>
+                        <td>${product.stock}</td>
+                        <td class="action-btns">
+                            <button class="btn-edit" onclick="duzenlemeModunaGec(${product.id})">Düzenle</button>
+                            <button class="btn-delete" onclick="deleteProduct(${product.id})">Sil</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        } catch (error) {
+            console.error("Ürünler çekilemedi:", error);
+        }
+    }
+
+    // --- 2. DÜZENLEME MODUNA GEÇİŞ (Otomatik Doldurma) ---
+    function duzenlemeModunaGec(id) {
+        const secilenUrun = depodakiUrunler.find(urun => urun.id === id);
+        if (!secilenUrun) return;
+
+        guncellenenUrunId = id;
+
+        document.getElementById('name').value = secilenUrun.name;
+        document.getElementById('brand').value = secilenUrun.brand;
+        document.getElementById('category').value = secilenUrun.category;
+        document.getElementById('price').value = secilenUrun.price;
+        document.getElementById('stock').value = secilenUrun.stock;
+        document.getElementById('imageUrl').value = secilenUrun.imageUrl || "";
+
+        document.getElementById('formCard').classList.add('edit-mode');
+        document.getElementById('formTitle').innerText = `Ürünü Güncelle (#${id})`;
+        document.getElementById('formTitle').style.color = '#2980b9';
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = 'Değişiklikleri Kaydet 💾';
+        submitBtn.style.backgroundColor = '#3498db';
+
+        document.getElementById('cancelBtn').style.display = 'block';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- DÜZENLEMEDEN VAZGEÇ (İptal Et) ---
+    function iptalEt() {
+        guncellenenUrunId = null;
+        document.getElementById('productForm').reset();
+
+        document.getElementById('formCard').classList.remove('edit-mode');
+        document.getElementById('formTitle').innerText = 'Yeni Ürün Ekle';
+        document.getElementById('formTitle').style.color = '#111';
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = 'Sisteme Ekle ✨';
+        submitBtn.style.backgroundColor = '#111';
+
+        document.getElementById('cancelBtn').style.display = 'none';
+    }
+
+    // --- 3. FORMU GÖNDER (EKLE VEYA GÜNCELLE) ---
+    document.getElementById('productForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const productData = {
+            name: document.getElementById('name').value,
+            brand: document.getElementById('brand').value,
+            category: document.getElementById('category').value,
+            price: parseFloat(document.getElementById('price').value),
+            stock: parseInt(document.getElementById('stock').value),
+            imageUrl: document.getElementById('imageUrl').value
+        };
+
+        const metod = guncellenenUrunId ? 'PUT' : 'POST';
+        const adres = guncellenenUrunId
+            ? `http://localhost:8080/api/products/${guncellenenUrunId}`
+            : `http://localhost:8080/api/products`;
+
+        try {
+            const response = await fetch(adres, {
+                method: metod,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': authHeader
+                },
+                body: JSON.stringify(productData)
+            });
+
+            if (response.ok) {
+                alert(guncellenenUrunId ? "Ürün başarıyla güncellendi! 🔄" : "Yeni ürün başarıyla eklendi! 🎉");
+                iptalEt();
+                fetchAdminProducts();
+            } else {
+                const errorData = await response.json();
+                let hataMesajlari = "Lütfen hataları düzeltin:\n\n";
+
+                for (const [alan, mesaj] of Object.entries(errorData)) {
+                    hataMesajlari += `❌ ${mesaj}\n`;
+                }
+
+                alert(hataMesajlari);
+            }
+        } catch (error) {
+            console.error("İşlem hatası:", error);
+            alert("Sunucuya ulaşılamadı. Lütfen arka planın çalıştığından emin olun.");
+        }
+    });
+
+    // --- 4. ÜRÜN SİLME (DELETE) ---
+    async function deleteProduct(id) {
+        if (confirm("Bu ürünü silmek istediğine emin misin?")) {
+            try {
+                const response = await fetch(`http://localhost:8080/api/products/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': authHeader }
+                });
+
+                if (response.ok) {
+                    fetchAdminProducts();
+                    if (guncellenenUrunId === id) iptalEt();
+                }
+            } catch (error) {
+                console.error("Silme hatası:", error);
+            }
+        }
+    }
+
+    window.onload = ekraniGoster;
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+2026-05-31 23:25:24.212160+03:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMAGE_URL CHARACTER VARYING(255)": "'https://sothebys-md.brightspotcdn.com/dims4/default/e9abd52/2147483647/strip/tr... (258)"; SQL statement:
+insert into products (brand,category,description,image_url,material,model,name,price,stock,supplier_id,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-240]
+2026-05-31 23:25:43.114269+03:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMAGE_URL CHARACTER VARYING(255)": "'https://sothebys-md.brightspotcdn.com/dims4/default/e9abd52/2147483647/strip/tr... (258)"; SQL statement:
+insert into products (brand,category,description,image_url,material,model,name,price,stock,supplier_id,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-240]
+2026-05-31 23:26:45.884219+03:00 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMAGE_URL CHARACTER VARYING(255)": "'https://sothebys-md.brightspotcdn.com/dims4/default/e9abd52/2147483647/strip/tr... (258)"; SQL statement:
+insert into products (brand,category,description,image_url,material,model,name,price,stock,supplier_id,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-240]

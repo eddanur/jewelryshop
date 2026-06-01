@@ -1,7 +1,7 @@
 package com.example.jewelryshop.service.impl;
 
 import com.example.jewelryshop.dto.ProductDTO;
-import com.example.jewelryshop.entity.Product; // Senin 'entity' klasörüne göre güncellendi
+import com.example.jewelryshop.entity.Product;
 import com.example.jewelryshop.repository.ProductRepository;
 import com.example.jewelryshop.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> getAllProducts() {
         return productRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // İŞTE YENİ EKLENEN METODUMUZ BURADA! (7. Madde İçin)
+    @Override
+    public List<ProductDTO> getProductsByCategory(String category) {
+        return productRepository.findByCategory(category)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

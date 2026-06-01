@@ -14,4 +14,7 @@ public interface ProductService {
     ProductDTO updateProduct(Long id, ProductDTO productDTO);
 
     void deleteProduct(Long id);
+
+    // Kategoriye göre ürün getirme metodu (7. Madde İçin)
+    List<ProductDTO> getProductsByCategory(String category);
 }
