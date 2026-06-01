@@ -31,7 +31,8 @@ Proje, N-Tier (Çok Katmanlı) mimari prensiplerine uygun olarak geliştirilmiş
 * **Dinamik Yönetim Paneli (Admin):** Yetkisiz erişime kapalı, şifreli giriş sistemi. Sayfa yenilenmeden çalışan ürün ekleme, silme, güncelleme (form otomatik doldurma) ve anlık çalışan **"Akıllı Tablo Arama"** özelliği.
 * **Gelişmiş Arama Motoru:** Kategoriye veya ürün ismine göre tüm veritabanını tarayan, URL parametreleriyle entegre çalışan arama sayfası (`arama.html`).
 * **Akıllı Vitrin ve UI Detayları:** Sınırlı sayıda (16 ürün) vitrin listelemesi, estetik 3'lü yatay slider ve thumbnail yapısı, dinamik "Benzer Ürünler" algoritması.
-
+* **Gelişmiş Sepet ve Teslimat Yönetimi:** `localStorage` tabanlı çalışan, 81 il entegreli dinamik teslimat formu ve anlık fiyat hesaplama özelliği.
+* **Sipariş Takip ve Dinamik İptal Sistemi:** Müşterilerin geçmiş siparişlerini adres bilgileriyle görüntüleyebildiği, ister tek bir ürünü ister tüm siparişi iptal edip toplam tutarın anında güncellendiği `siparislerim.html` modülü.
 ##  Güvenlik (Spring Security) ve API Uçları
 Sistemde güvenlik katmanı aktif edilmiş olup, rol bazlı yetkilendirme (RBAC) uygulanmıştır:
 
