@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siparişlerim | EDDE JEWELRY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafafa; color: #333; }
+
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background-color: #fff; border-bottom: 1px solid #f0f0f0; }
+        .logo-box { border: 2px solid #d4af37; padding: 8px 15px; display: inline-block; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 3px; font-weight: 600; color: #000; text-decoration: none; }
+
+        .container { max-width: 900px; margin: 50px auto; padding: 0 20px; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 30px; text-align: center; }
+
+        .order-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .order-header { display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+
+        .order-info span { display: block; font-size: 13px; color: #777; margin-bottom: 3px; }
+        .order-info strong { color: #111; font-size: 14px; font-weight: 500; }
+
+        .order-status { background-color: #fdfaf2; color: #d4af37; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid #eedcbf; display: inline-block;}
+        .status-cancelled { background-color: #fff0f0; color: #ff4d4d; border-color: #ffcccc; }
+
+        .order-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f9f9f9; }
+        .order-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .order-item img { width: 70px; height: 85px; object-fit: cover; border-radius: 4px; border: 1px solid #eee; }
+        .order-item-details { flex: 1; }
+        .order-item-title { font-size: 14px; font-weight: 500; margin-bottom: 3px;}
+        .order-item-price { font-size: 13px; color: #777; margin-bottom: 8px; }
+
+        .btn-cancel-item { background: none; border: none; color: #ff4d4d; font-size: 12px; font-weight: 500; cursor: pointer; text-decoration: underline; }
+        .btn-cancel-item:hover { color: #cc0000; }
+
+        .order-actions { margin-top: 20px; text-align: right; border-top: 1px solid #eee; padding-top: 15px; }
+        .btn-cancel { background-color: #fff; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 8px 15px; border-radius: 4px; font-size: 13px; cursor: pointer; transition: 0.3s; font-weight: 500; }
+        .btn-cancel:hover { background-color: #ff4d4d; color: #fff; }
+
+        .empty-state { text-align: center; padding: 50px; color: #777; background: #fff; border-radius: 8px; border: 1px solid #eee; }
+        .btn-shop { display: inline-block; margin-top: 20px; padding: 10px 25px; background: #111; color: #fff; text-decoration: none; border-radius: 4px; transition: 0.3s; }
+        .btn-shop:hover { background: #d4af37; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" style="text-decoration: none;">
+        <div class="logo-box"><div class="logo">EDDE JEWELRY</div></div>
+    </a>
+    <a href="index.html" style="color:#555; text-decoration:none; font-size:14px; font-weight: 500;">← Alışverişe Dön</a>
+</header>
+
+<div class="container">
+    <h1>Siparişlerim</h1>
+    <div id="siparisListesi">
+        <!-- Siparişler buraya JavaScript ile gelecek -->
+    </div>
+</div>
+
+<script>
+    function siparisleriYukle() {
+        let siparisler = JSON.parse(localStorage.getItem('siparisler')) || [];
+        let listeDiv = document.getElementById('siparisListesi');
+
+        if (siparisler.length === 0) {
+            listeDiv.innerHTML = `
+                <div class="empty-state">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 22px; color: #111; margin-bottom: 10px;">Henüz hiç sipariş vermediniz.</h3>
+                    <p>Mücevher koleksiyonumuzu keşfetmek için vitrine göz atın.</p>
+                    <a href="index.html" class="btn-shop">Alışverişe Başla</a>
+                </div>
+            `;
+            return;
+        }
+
+        listeDiv.innerHTML = ""; // İçeriği temizle
+
+        siparisler.forEach((siparis, index) => {
+            let isCancelled = siparis.durum.includes('İptal');
+            let statusClass = isCancelled ? 'order-status status-cancelled' : 'order-status';
+
+            let urunlerHtml = "";
+
+            if (siparis.urunler && siparis.urunler.length > 0) {
+                siparis.urunler.forEach((urun, urunIndex) => {
+                    let fiyatSayi = parseInt(urun.fiyat.replace(/\D/g, ''));
+                    let satirToplam = (fiyatSayi * urun.adet).toLocaleString('tr-TR');
+
+                    // Eğer sipariş komple iptal edilmemişse "Bu Ürünü İptal Et" butonu görünsün
+                    let urunIptalButonu = !isCancelled ?
+                        `<button class="btn-cancel-item" onclick="tekUrunIptalEt(${index}, ${urunIndex})">Bu Ürünü İptal Et</button>` : '';
+
+                    urunlerHtml += `
+                        <div class="order-item">
+                            <img src="${urun.resim || 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=100'}" alt="ürün">
+                            <div class="order-item-details">
+                                <div class="order-item-title">${urun.isim} (x${urun.adet})</div>
+                                <div class="order-item-price">${satirToplam} ₺</div>
+                                ${urunIptalButonu}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                urunlerHtml = `<p style="color: #ff4d4d; font-size: 13px;">Bu siparişteki tüm ürünler iptal edilmiştir.</p>`;
+            }
+
+            // Sadece sipariş aktifse ve içinde ürün varsa "Komple İptal Et" butonu görünsün
+            let kompleIptalButonu = (!isCancelled && siparis.urunler.length > 0) ?
+                `<div class="order-actions"><button class="btn-cancel" onclick="siparisiIptalEt(${index})">Tüm Siparişi İptal Et</button></div>` : '';
+
+            let siparisKart = `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <span>Sipariş No</span>
+                            <strong>${siparis.siparisNo}</strong>
+                        </div>
+                        <div class="order-info">
+                            <span>Tarih / Saat</span>
+                            <strong>${siparis.tarih} - ${siparis.saat}</strong>
+                        </div>
+                        <div class="order-info">
+                            <span>Alıcı & Şehir</span>
+                            <strong>${siparis.aliciBilgisi}</strong>
+                        </div>
+                        <div class="order-info">
+                            <span>Toplam Tutar</span>
+                            <strong>${siparis.toplamTutarText}</strong>
+                        </div>
+                        <div>
+                            <span class="${statusClass}">${siparis.durum}</span>
+                        </div>
+                    </div>
+
+                    <div class="order-info" style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #eee;">
+                        <span>Teslimat Adresi</span>
+                        <strong>${siparis.aliciAdres}</strong>
+                    </div>
+
+                    <div class="order-items">
+                        ${urunlerHtml}
+                    </div>
+
+                    ${kompleIptalButonu}
+                </div>
+            `;
+            listeDiv.innerHTML += siparisKart;
+        });
+    }
+
+    // --- YENİ: Sadece tek bir ürünü iptal etme fonksiyonu ---
+    function tekUrunIptalEt(siparisIndex, urunIndex) {
+        if(confirm("Bu ürünü siparişinizden çıkarmak istediğinize emin misiniz?")) {
+            let siparisler = JSON.parse(localStorage.getItem('siparisler')) || [];
+            let siparis = siparisler[siparisIndex];
+
+            // Ürünü listeden sil
+            siparis.urunler.splice(urunIndex, 1);
+
+            // Eğer listede hiç ürün kalmadıysa komple siparişi iptal et
+            if (siparis.urunler.length === 0) {
+                siparis.durum = 'İptal Edildi ❌';
+                siparis.toplamTutarText = "0 ₺";
+            } else {
+                // Kalan ürünlere göre yeni toplam tutarı hesapla
+                let yeniToplam = 0;
+                siparis.urunler.forEach(u => {
+                    let fiyatSayi = parseInt(u.fiyat.replace(/\D/g, ''));
+                    yeniToplam += (fiyatSayi * u.adet);
+                });
+                siparis.toplamTutarText = yeniToplam.toLocaleString('tr-TR') + " ₺";
+            }
+
+            localStorage.setItem('siparisler', JSON.stringify(siparisler));
+            siparisleriYukle(); // Sayfayı anında yenile
+        }
+    }
+
+    // Tüm Siparişi İptal Etme Fonksiyonu
+    function siparisiIptalEt(index) {
+        if(confirm("Bu siparişin TAMAMINI iptal etmek istediğinize emin misiniz?")) {
+            let siparisler = JSON.parse(localStorage.getItem('siparisler')) || [];
+            siparisler[index].durum = 'İptal Edildi ❌';
+            siparisler[index].urunler = []; // Ürünleri temizle
+            siparisler[index].toplamTutarText = "0 ₺"; // Fiyatı sıfırla
+            localStorage.setItem('siparisler', JSON.stringify(siparisler));
+            siparisleriYukle();
+        }
+    }
+
+    // Sayfa açıldığında siparişleri yükle
+    window.onload = siparisleriYukle;
+</script>
+
+</body>
+</html>
