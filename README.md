@@ -62,10 +62,10 @@ Bu projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımlar�
    * Proje dizinindeki `Shopify` klasörünü açın.
    * `index.html` dosyasına çift tıklayarak veya bir Live Server eklentisi kullanarak tarayıcıda açın.
    * Sağ üstteki dişli (⚙️) ikonuna tıklayarak Admin paneline erişebilir (`admin` / `admin123` şifresiyle) sistemi test edebilirsiniz.
-   * <img width="1917" height="872" alt="Ekran görüntüsü 2026-10-05 221318" src="https://github.com/user-attachments/assets/6b8ffdd6-c835-4008-b021-c97e3cea2e13" />
-<img width="1897" height="902" alt="Ekran görüntüsü 2026-10-05 221642" src="https://github.com/user-attachments/assets/e1d46c50-ffa9-4061-b4ca-1fafa98a244e" />
-<img width="1900" height="902" alt="Ekran görüntüsü 2026-10-05 221826" src="https://github.com/user-attachments/assets/9073f9a8-e126-4af6-a707-c06e2c7724ec" />
-<img width="1897" height="907" alt="Ekran görüntüsü 2026-10-05 221336" src="https://github.com/user-attachments/assets/612e1773-e3a4-4b03-aac0-1d061b958be6" />
+   * <img width="1897" height="907" alt="Ekran görüntüsü 2026-10-05 221336" src="https://github.com/user-attachments/assets/61de5959-9a8a-4fc1-a9a9-f86ddd822131" />
+<img width="1897" height="902" alt="Ekran görüntüsü 2026-10-05 221642" src="https://github.com/user-attachments/assets/1d1796e4-2318-4ef4-a09a-576cbd637bc7" />
+<img width="1900" height="902" alt="Ekran görüntüsü 2026-10-05 221826" src="https://github.com/user-attachments/assets/ca9ec282-1498-4246-8e19-9b9db3d28f43" />
+<img width="1917" height="872" alt="Ekran görüntüsü 2026-10-05 221318" src="https://github.com/user-attachments/assets/cd4d0d7a-bffa-4626-bca6-02cd0dd5d9cd" />
 
 
 ---
