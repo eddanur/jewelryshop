@@ -1,4 +1,4 @@
-💎 EDDE JEWELRY - E-Ticaret ve REST API Yönetim Sistemi
+<img width="1897" height="902" alt="Ekran görüntüsü 2026-10-05 221642" src="https://github.com/user-attachments/assets/ba3cd1e5-7c63-436a-9a7e-7b5ee7b08f6f" />💎 EDDE JEWELRY - E-Ticaret ve REST API Yönetim Sistemi
 
 Bu proje, Spring Boot kullanılarak geliştirilmiş güçlü bir RESTful API arka planına ve HTML/CSS/JS ile kodlanmış, tamamen dinamik çalışan estetik bir ön yüze (Frontend) sahip Takı/Mücevher Dükkanı yönetim sistemidir.
 
@@ -62,6 +62,11 @@ Bu projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımlar�
    * Proje dizinindeki `Shopify` klasörünü açın.
    * `index.html` dosyasına çift tıklayarak veya bir Live Server eklentisi kullanarak tarayıcıda açın.
    * Sağ üstteki dişli (⚙️) ikonuna tıklayarak Admin paneline erişebilir (`admin` / `admin123` şifresiyle) sistemi test edebilirsiniz.
+   * <img width="1917" height="872" alt="Ekran görüntüsü 2026-10-05 221318" src="https://github.com/user-attachments/assets/6b8ffdd6-c835-4008-b021-c97e3cea2e13" />
+<img width="1897" height="902" alt="Ekran görüntüsü 2026-10-05 221642" src="https://github.com/user-attachments/assets/e1d46c50-ffa9-4061-b4ca-1fafa98a244e" />
+<img width="1900" height="902" alt="Ekran görüntüsü 2026-10-05 221826" src="https://github.com/user-attachments/assets/9073f9a8-e126-4af6-a707-c06e2c7724ec" />
+<img width="1897" height="907" alt="Ekran görüntüsü 2026-10-05 221336" src="https://github.com/user-attachments/assets/612e1773-e3a4-4b03-aac0-1d061b958be6" />
+
 
 ---
 *Geliştirici: [Edanur Dede]*
